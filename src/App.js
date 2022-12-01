@@ -1,9 +1,13 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/layout';
 
 function App() {
   return (
-    <div className="App">
-    </div>
+    <Routes>
+      <Route path='/' element={<Layout />} >
+      
+      </Route>
+    </Routes>
   );
 }
 
