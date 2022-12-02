@@ -9,7 +9,6 @@ const USER_REGEX = /^[A-z]{3,20}$/
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
 
 const EditUserForm = ({ user }) => {
-
     const [updateUser, {
         isLoading,
         isSuccess,
@@ -48,7 +47,6 @@ const EditUserForm = ({ user }) => {
             setRoles([])
             navigate('/dash/users')
         }
-
     }, [isSuccess, isDelSuccess, navigate])
 
     const onUsernameChanged = e => setUsername(e.target.value)
@@ -81,8 +79,9 @@ const EditUserForm = ({ user }) => {
             <option
                 key={role}
                 value={role}
-
-            > {role}</option >
+            > 
+                {role}
+            </option >
         )
     })
 
