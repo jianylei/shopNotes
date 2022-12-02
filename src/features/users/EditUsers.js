@@ -5,9 +5,11 @@ import { selectUserById } from './usersApiSlice'
 import EditUserForm from './EditUserForm'
 
 const EditUsers = () => {
-  return (
-    <div>EditUsers</div>
-  )
+    const { id } = useParams()
+
+    const user = useSelector(state => selectUserById(state, id))
+
+    return user ? <EditUserForm user={user} /> : <p>Loading...</p>
 }
 
 export default EditUsers
