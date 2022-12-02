@@ -18,17 +18,18 @@ const NewNoteForm = ({ users }) => {
     const [title, setTitle] = useState('')
     const [text, setText] = useState('')
 
-    useEffect({
+    useEffect(() => {
         if (isSuccess) {
             setUserId('')
             setTitle('')
             setText('')
+            navigate('/dash/notes')
         }
     }, [isSuccess, navigate])
 
     const onUserIdChanged = e => setUserId(e.target.value)
-    const onTitleChange = e => setTitle(e.target.value)
-    const onTextChange = e => setText(e.target.value)
+    const onTitleChanged = e => setTitle(e.target.value)
+    const onTextChanged = e => setText(e.target.value)
 
     const canSave = [userId, title, text].every(Boolean) && !isLoading
 
@@ -45,7 +46,7 @@ const NewNoteForm = ({ users }) => {
                 key={user.id}
                 value={user.id}
             >
-                {user.id}
+                {user.username}
             </option>
         )
     })
@@ -57,7 +58,6 @@ const NewNoteForm = ({ users }) => {
     return (
         <>
             <p className={errClass}>{error?.data?.message}</p>
-
             <form className="form" onSubmit={onSaveNoteClicked}>
                 <div className="form__title-row">
                     <h2>New Note</h2>
@@ -82,7 +82,6 @@ const NewNoteForm = ({ users }) => {
                     value={title}
                     onChange={onTitleChanged}
                 />
-
                 <label className="form__label" htmlFor="text">
                     Text:</label>
                 <textarea
@@ -92,7 +91,6 @@ const NewNoteForm = ({ users }) => {
                     value={text}
                     onChange={onTextChanged}
                 />
-
                 <label className="form__label form__checkbox-container" htmlFor="username">
                     ASSIGNED TO:</label>
                 <select
@@ -104,7 +102,6 @@ const NewNoteForm = ({ users }) => {
                 >
                     {options}
                 </select>
-
             </form>
         </>
     )
