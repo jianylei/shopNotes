@@ -100,11 +100,9 @@ const EditUserForm = ({ user }) => {
 
     const errContent = (error?.data?.message || delerror?.data?.message) ?? ''
 
-
-    const content = (
+    return (
         <>
             <p className={errClass}>{errContent}</p>
-
             <form className="form" onSubmit={e => e.preventDefault()}>
                 <div className="form__title-row">
                     <h2>Edit User</h2>
@@ -137,7 +135,6 @@ const EditUserForm = ({ user }) => {
                     value={username}
                     onChange={onUsernameChanged}
                 />
-
                 <label className="form__label" htmlFor="password">
                     Password: <span className="nowrap">[empty = no change]</span> <span className="nowrap">[4-12 chars incl. !@#$%]</span></label>
                 <input
@@ -148,7 +145,6 @@ const EditUserForm = ({ user }) => {
                     value={password}
                     onChange={onPasswordChanged}
                 />
-
                 <label className="form__label form__checkbox-container" htmlFor="user-active">
                     ACTIVE:
                     <input
@@ -160,7 +156,6 @@ const EditUserForm = ({ user }) => {
                         onChange={onActiveChanged}
                     />
                 </label>
-
                 <label className="form__label" htmlFor="roles">
                     ASSIGNED ROLES:</label>
                 <select
@@ -174,11 +169,9 @@ const EditUserForm = ({ user }) => {
                 >
                     {options}
                 </select>
-
             </form>
         </>
     )
-
-    return content
 }
+
 export default EditUserForm
