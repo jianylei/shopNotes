@@ -41,7 +41,7 @@ const DashHeader = () => {
 
     let dashClass = null
     if (!DASH_REGEX.test(pathname) && !NOTES_REGEX.test(pathname) && !USERS_REGEX.test(pathname)) {
-        dashClass = "dash-header__container--small"
+        //dashClass = "dash-header__container--small"
     }
 
     let newNoteButton = null
