@@ -7,7 +7,7 @@ const usePersist = () => {
     useEffect(() => {
         localStorage.setItem('persist', JSON.stringify(persist))
     }, [persist])
-    reutn [persist, setPersist]
+    return [persist, setPersist]
 }
 
 export default usePersist
