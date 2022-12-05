@@ -28,7 +28,11 @@ const EditUserForm = ({ user }) => {
     const [validUsername, setValidUsername] = useState(false)
     const [password, setPassword] = useState('')
     const [validPassword, setValidPassword] = useState(false)
-    const [roles, setRoles] = useState(user.roles)
+    const [role, setRole] = useState(
+        user.roles.includes(ROLES.Admin) ? ROLES.Admin
+        : user.roles.includes(ROLES.Manager) ? ROLES.Manager
+        : ROLES.Employee
+    )
     const [active, setActive] = useState(user.active)
 
     useEffect(() => {
@@ -44,25 +48,23 @@ const EditUserForm = ({ user }) => {
         if (isSuccess || isDelSuccess) {
             setUsername('')
             setPassword('')
-            setRoles([])
+            setRole('')
             navigate('/dash/users')
         }
     }, [isSuccess, isDelSuccess, navigate])
 
     const onUsernameChanged = e => setUsername(e.target.value)
-    const onPasswordChanged = e => setPassword(e.target.value)
-
-    const onRolesChanged = e => {
-        const values = Array.from(
-            e.target.selectedOptions,
-            (option) => option.value
-        )
-        setRoles(values)
-    }
+    const onPasswordChanged = e => {setPassword(e.target.value);console.log(role)}
+    const onRolesChanged = e => setRole(e.target.value)
 
     const onActiveChanged = () => setActive(prev => !prev)
 
     const onSaveUserClicked = async (e) => {
+        let roles = []
+        if (role === ROLES.Admin) roles = Object.keys(ROLES).map(key => ROLES[key])
+        else if (role === ROLES.Manager) roles = [ROLES.Employee, ROLES.Manager]
+        else roles = [role]
+
         if (password) {
             await updateUser({ id: user.id, username, password, roles, active })
         } else {
@@ -87,15 +89,15 @@ const EditUserForm = ({ user }) => {
 
     let canSave
     if (password) {
-        canSave = [roles.length, validUsername, validPassword].every(Boolean) && !isLoading
+        canSave = [role, validUsername, validPassword].every(Boolean) && !isLoading
     } else {
-        canSave = [roles.length, validUsername].every(Boolean) && !isLoading
+        canSave = [role, validUsername].every(Boolean) && !isLoading
     }
 
     const errClass = (isError || isDelError) ? "errmsg" : "offscreen"
     const validUserClass = !validUsername ? 'form__input--incomplete' : ''
     const validPwdClass = password && !validPassword ? 'form__input--incomplete' : ''
-    const validRolesClass = !Boolean(roles.length) ? 'form__input--incomplete' : ''
+    const validRolesClass = !role ? 'form__input--incomplete' : ''
 
     const errContent = (error?.data?.message || delerror?.data?.message) ?? ''
 
@@ -161,9 +163,7 @@ const EditUserForm = ({ user }) => {
                     id="roles"
                     name="roles"
                     className={`form__select ${validRolesClass}`}
-                    multiple={true}
-                    size="3"
-                    value={roles}
+                    value={role}
                     onChange={onRolesChanged}
                 >
                     {options}

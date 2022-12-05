@@ -10,18 +10,19 @@
 
 :root {
   /* COLORS */
-  --BGCOLOR: #0F172A;
+  /*--BGCOLOR: #0F172A;*/
+  --BGCOLOR: #121212;
   --BORDER-COLOR: #FFF;
   --COLOR: #FFF;
   --ERROR: firebrick;
   --INACTIVE: lightgray;
-  --LINK-COLOR: whitesmoke;
-  --LINK-HOVER: rgba(245, 245, 245, 0.9);
+  --LINK-COLOR: #f5f5f5e6;
+  --LINK-HOVER: #FFF;
   --NOTE-BGCOLOR: hsla(240, 64%, 27%, 0.65);
   --STATUS-COMPLETE: limegreen;
-  --STATUS-OPEN: firebrick;
-  --TABLE-BGCOLOR: #FFF;
-  --TABLE-COLOR: #000;
+  --STATUS-OPEN: #CF5579;
+  --TABLE-BGCOLOR: rgba(255, 255, 255, 8%);
+  --TABLE-COLOR: #FFF;
   --INPUT-INVALID: #F00;
 }
 
@@ -70,10 +71,10 @@ body {
   min-height: 100vh;
   background-color: var(--BGCOLOR);
   color: var(--COLOR);
-  background-image: url('./img/background.jpg');
+  /*background-image: url('./img/background.jpg');
   background-size: cover;
   background-position: top right;
-  background-blend-mode: multiply;
+  background-blend-mode: multiply;*/
 }
 
 input,
@@ -129,8 +130,8 @@ a:focus-visible {
   margin-top: 1em;
 }
 
-.welcome a::before {
-  content: "➜ "
+.welcome a {
+  margin-left: 25px;
 }
 
 /* || DASH HEADER, CONTAINER & FOOTER */
@@ -220,7 +221,7 @@ tr {
 .table__cell {
   background-color: var(--TABLE-BGCOLOR);
   text-align: left;
-  border: 1px solid var(--TABLE-COLOR);
+  border: 1px solid var(--BGCOLOR);
   padding: 0.5em;
 }
 
@@ -233,11 +234,15 @@ tr {
   background-color: var(--INACTIVE);
 }
 
+.table__row {
+  cursor: pointer;
+}
+
 /* ||  NOTE */
 
 .note__created,
 .note__updated,
-.note__username {
+.note__ticket {
   display: none;
 }
 
@@ -368,7 +373,7 @@ tr {
 
   .note__created,
   .note__updated,
-  .note__username {
+  .note__ticket {
     display: block
   }
 

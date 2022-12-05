@@ -10,7 +10,7 @@ const USER_REGEX = /^[A-z]{3,20}$/
 const PWD_REGEX = /^[A-z0-9!@#$%]{4,12}$/
 
 const NewUserForm = () => {
-    useTitle('techNotes: New User')
+    useTitle('shopNotes: New User')
 
     const [addNewUser, {
         isLoading,
@@ -25,7 +25,7 @@ const NewUserForm = () => {
     const [validUsername, setValidUsername] = useState(false)
     const [password, setPassword] = useState('')
     const [validPassword, setValidPassword] = useState(false)
-    const [roles, setRoles] = useState([ROLES.Employee])
+    const [role, setRole] = useState(ROLES.Employee)
 
     useEffect(() => {
         setValidUsername(USER_REGEX.test(username))
@@ -39,27 +39,25 @@ const NewUserForm = () => {
         if (isSuccess) {
             setUsername('')
             setPassword('')
-            setRoles([])
+            setRole('')
             navigate('/dash/users')
         }
     }, [isSuccess, navigate])
 
     const onUsernameChanged = e => setUsername(e.target.value)
     const onPasswordChanged = e => setPassword(e.target.value)
+    const onRolesChanged = e => setRole(e.target.value)
 
-    const onRolesChanged = e => {
-        const values = Array.from(
-            e.target.selectedOptions,
-            (option) => option.value
-        )
-        setRoles(values)
-    }
-
-    const canSave = [roles.length, validUsername, validPassword].every(Boolean) && !isLoading
+    const canSave = [role, validUsername, validPassword].every(Boolean) && !isLoading
 
     const onSaveUserClicked = async (e) => {
         e.preventDefault()
         if (canSave) {
+            let roles = []
+            if (role === ROLES.Admin) roles = Object.keys(ROLES).map(key => ROLES[key])
+            else if (role === ROLES.Manager) roles = [ROLES.Employee, ROLES.Manager]
+            else roles = [role]
+        
             await addNewUser({ username, password, roles })
         }
     }
@@ -78,7 +76,7 @@ const NewUserForm = () => {
     const errClass = isError ? "errmsg" : "offscreen"
     const validUserClass = !validUsername ? 'form__input--incomplete' : ''
     const validPwdClass = !validPassword ? 'form__input--incomplete' : ''
-    const validRolesClass = !Boolean(roles.length) ? 'form__input--incomplete' : ''
+    const validRolesClass = !role ? 'form__input--incomplete' : ''
 
     return (
         <>
@@ -124,9 +122,7 @@ const NewUserForm = () => {
                     id="roles"
                     name="roles"
                     className={`form__select ${validRolesClass}`}
-                    multiple={true}
-                    size="3"
-                    value={roles}
+                    value={role}
                     onChange={onRolesChanged}
                 >
                     {options}
