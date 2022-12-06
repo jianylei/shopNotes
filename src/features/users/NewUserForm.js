@@ -23,8 +23,10 @@ const NewUserForm = () => {
 
     const [username, setUsername] = useState('')
     const [validUsername, setValidUsername] = useState(false)
+    const [userFirst, setUserFirst] = useState(true)
     const [password, setPassword] = useState('')
     const [validPassword, setValidPassword] = useState(false)
+    const [passwordFirst, setPasswordFirst] = useState(true)
     const [role, setRole] = useState(ROLES.Employee)
 
     useEffect(() => {
@@ -62,6 +64,11 @@ const NewUserForm = () => {
         }
     }
 
+    const userBlurHandle = (e) => {
+        if (e.target.name === 'username') setUserFirst(false)
+        else setPasswordFirst(false)
+    }
+
     const options = Object.values(ROLES).map(role => {
         return (
             <option
@@ -74,8 +81,8 @@ const NewUserForm = () => {
     })
 
     const errClass = isError ? "errmsg" : "offscreen"
-    const validUserClass = !validUsername ? 'form__input--incomplete' : ''
-    const validPwdClass = !validPassword ? 'form__input--incomplete' : ''
+    const validUserClass = !validUsername && !userFirst ? 'form__input--incomplete' : ''
+    const validPwdClass = !validPassword && !passwordFirst ? 'form__input--incomplete' : ''
     const validRolesClass = !role ? 'form__input--incomplete' : ''
 
     return (
@@ -84,15 +91,6 @@ const NewUserForm = () => {
             <form className="form" onSubmit={onSaveUserClicked}>
                 <div className="form__title-row">
                     <h2>New User</h2>
-                    <div className="form__action-buttons">
-                        <button
-                            className="icon-button"
-                            title="Save"
-                            disabled={!canSave}
-                        >
-                            <FontAwesomeIcon icon={faSave} />
-                        </button>
-                    </div>
                 </div>
                 <label className="form__label" htmlFor="username">
                     Username: <span className="nowrap">[3-20 letters]</span></label>
@@ -104,6 +102,7 @@ const NewUserForm = () => {
                     autoComplete="off"
                     value={username}
                     onChange={onUsernameChanged}
+                    onBlur={userBlurHandle}
                 />
                 <label className="form__label" htmlFor="password">
                     Password: <span className="nowrap">[4-12 chars incl. !@#$%]</span></label>
@@ -114,19 +113,27 @@ const NewUserForm = () => {
                     type="password"
                     value={password}
                     onChange={onPasswordChanged}
+                    onBlur={userBlurHandle}
                 />
-
-                <label className="form__label" htmlFor="roles">
-                    ASSIGNED ROLES:</label>
-                <select
-                    id="roles"
-                    name="roles"
-                    className={`form__select ${validRolesClass}`}
-                    value={role}
-                    onChange={onRolesChanged}
+                <div className="form__select-container">
+                    <label className="form__label" htmlFor="roles">
+                        ASSIGNED ROLE:</label>
+                    <select
+                        id="roles"
+                        name="roles"
+                        className={`form__select ${validRolesClass}`}
+                        value={role}
+                        onChange={onRolesChanged}
+                    >
+                        {options}
+                    </select>
+                </div>
+                <button 
+                    className="form__submit-button"
+                    title="Save"
                 >
-                    {options}
-                </select>
+                    Add User
+                </button>
             </form>
         </>
     )

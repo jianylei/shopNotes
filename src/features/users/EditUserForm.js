@@ -60,15 +60,17 @@ const EditUserForm = ({ user }) => {
     const onActiveChanged = () => setActive(prev => !prev)
 
     const onSaveUserClicked = async (e) => {
-        let roles = []
-        if (role === ROLES.Admin) roles = Object.keys(ROLES).map(key => ROLES[key])
-        else if (role === ROLES.Manager) roles = [ROLES.Employee, ROLES.Manager]
-        else roles = [role]
-
-        if (password) {
-            await updateUser({ id: user.id, username, password, roles, active })
-        } else {
-            await updateUser({ id: user.id, username, roles, active })
+        if (canSave) {
+            let roles = []
+            if (role === ROLES.Admin) roles = Object.keys(ROLES).map(key => ROLES[key])
+            else if (role === ROLES.Manager) roles = [ROLES.Employee, ROLES.Manager]
+            else roles = [role]
+    
+            if (password) {
+                await updateUser({ id: user.id, username, password, roles, active })
+            } else {
+                await updateUser({ id: user.id, username, roles, active })
+            }
         }
     }
 
@@ -110,14 +112,6 @@ const EditUserForm = ({ user }) => {
                     <div className="form__action-buttons">
                         <button
                             className="icon-button"
-                            title="Save"
-                            onClick={onSaveUserClicked}
-                            disabled={!canSave}
-                        >
-                            <FontAwesomeIcon icon={faSave} />
-                        </button>
-                        <button
-                            className="icon-button"
                             title="Delete"
                             onClick={onDeleteUserClicked}
                         >
@@ -157,17 +151,26 @@ const EditUserForm = ({ user }) => {
                         onChange={onActiveChanged}
                     />
                 </label>
-                <label className="form__label" htmlFor="roles">
-                    ASSIGNED ROLES:</label>
-                <select
-                    id="roles"
-                    name="roles"
-                    className={`form__select ${validRolesClass}`}
-                    value={role}
-                    onChange={onRolesChanged}
+                <div className="form__select-container">
+                    <label className="form__label" htmlFor="roles">
+                        ASSIGNED ROLE:</label>
+                    <select
+                        id="roles"
+                        name="roles"
+                        className={`form__select ${validRolesClass}`}
+                        value={role}
+                        onChange={onRolesChanged}
+                    >
+                        {options}
+                    </select>
+                </div>
+                <button 
+                    className="form__submit-button" 
+                    title="Save"
+                    onClick={onSaveUserClicked}
                 >
-                    {options}
-                </select>
+                    Update User
+                </button>
             </form>
         </>
     )

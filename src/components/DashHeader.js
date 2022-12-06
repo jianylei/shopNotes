@@ -3,8 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
     faFileCirclePlus,
     faFilePen,
-    faUserGear,
-    faUserPlus,
+    faNoteSticky,
+    faUsers,
+    faPlus,
     faRightFromBracket 
 } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate, Link, useLocation } from 'react-router-dom'
@@ -52,7 +53,7 @@ const DashHeader = () => {
                 title="New Note"
                 onClick={onNewNoteClicked}
             >
-                <FontAwesomeIcon icon={faFileCirclePlus} />
+                <FontAwesomeIcon icon={faPlus} />
             </button>
         )
     }
@@ -65,7 +66,7 @@ const DashHeader = () => {
                 title="New User"
                 onClick={onNewUserClicked}
             >
-                <FontAwesomeIcon icon={faUserPlus} />
+                <FontAwesomeIcon icon={faPlus} />
             </button>
         )
     }
@@ -79,7 +80,7 @@ const DashHeader = () => {
                     title="Users"
                     onClick={onUsersClicked}
                 >
-                    <FontAwesomeIcon icon={faUserGear} />
+                    <FontAwesomeIcon icon={faUsers} />
                 </button>
             )
         }
@@ -93,7 +94,7 @@ const DashHeader = () => {
                 title="Notes"
                 onClick={onNotesClicked}
             >
-                <FontAwesomeIcon icon={faFilePen} />
+                <FontAwesomeIcon icon={faNoteSticky} />
             </button>
         )
     }
@@ -131,7 +132,7 @@ const DashHeader = () => {
             <header className="dash-header">
                 <div className={`dash-header__container ${dashClass}`}>
                     <Link to="/dash">
-                        <h1 className="dash-header__title">Notes</h1>
+                        <h1 className="dash-header__title">shopNotes</h1>
                     </Link>
                     <nav className="dash-header__nav">
                         {buttonContent}

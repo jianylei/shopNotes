@@ -12,26 +12,26 @@
   /* COLORS */
   /*--BGCOLOR: #0F172A;*/
   --BGCOLOR: #121212;
-  --BORDER-COLOR: #FFF;
+  --SURFACE: rgba(255, 255, 255, 5%);
+  --BORDER-COLOR: rgba(255, 255, 255, 5%);
   --COLOR: #FFF;
-  --ERROR: firebrick;
+  --ERROR: #CF5579;
   --INACTIVE: lightgray;
   --LINK-COLOR: #f5f5f5e6;
   --LINK-HOVER: #FFF;
   --NOTE-BGCOLOR: hsla(240, 64%, 27%, 0.65);
   --STATUS-COMPLETE: limegreen;
   --STATUS-OPEN: #CF5579;
-  --TABLE-BGCOLOR: rgba(255, 255, 255, 8%);
   --TABLE-COLOR: #FFF;
   --INPUT-INVALID: #F00;
+  --PRIMARY: #bb86fc;
+  --BUTTON: rgba(255, 255, 255, 2%);;
 }
 
 /* || UTILITY CLASSES */
 .errmsg {
   display: inline-block;
-  background-color: var(--TABLE-BGCOLOR);
   color: var(--ERROR);
-  padding: 0.25em;
   margin-bottom: 0.5em;
 }
 
@@ -47,17 +47,18 @@
 .icon-button {
   width: 48px;
   height: 48px;
-  font-size: 2.5rem;
+  font-size: 1.25rem;
   background-color: transparent;
   border: none;
-  color: var(--COLOR);
+  color: var(--LINK-COLOR);
   display: grid;
   place-content: center;
+  cursor: pointer;
 }
 
 .icon-button:hover,
 .icon-button:focus-visible {
-  transform: scale(1.2);
+  color: var(--LINK-HOVER);
 }
 
 .icon-button[disabled] {
@@ -67,7 +68,7 @@
 /* || GENERAL STYLES */
 
 body {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Merriweather Sans', sans-serif;
   min-height: 100vh;
   background-color: var(--BGCOLOR);
   color: var(--COLOR);
@@ -130,8 +131,12 @@ a:focus-visible {
   margin-top: 1em;
 }
 
-.welcome a {
-  margin-left: 25px;
+.welcome {
+  margin: 10px 0 0 25px;
+}
+
+.welcome p {
+  color: var(--PRIMARY);
 }
 
 /* || DASH HEADER, CONTAINER & FOOTER */
@@ -140,8 +145,8 @@ a:focus-visible {
   position: sticky;
   top: 0;
   z-index: 1;
-  background-color: var(--BGCOLOR);
-  padding: 0 0.5em;
+  background-color: var(--SURFACE);
+  padding: 0.5rem 1rem;
   border-bottom: 1px solid var(--BORDER-COLOR);
 }
 
@@ -163,6 +168,11 @@ a:focus-visible {
   gap: 0.5em;
 }
 
+.dash-header__title {
+  color: var(--COLOR);
+  font-size: 2rem;
+}
+
 .dash-container {
   padding: 0.75em 0.5em 0.5em;
   flex-grow: 1;
@@ -173,8 +183,8 @@ a:focus-visible {
   position: sticky;
   bottom: 0;
   z-index: 1;
-  background-color: var(--BGCOLOR);
-  padding: 0.5em;
+  background-color: var(--SURFACE);
+  padding: 0.7rem 1.5rem;
   border-top: 1px solid var(--BORDER-COLOR);
   display: flex;
   flex-flow: row nowrap;
@@ -219,7 +229,7 @@ tr {
 
 .table__th,
 .table__cell {
-  background-color: var(--TABLE-BGCOLOR);
+  background-color: var(--SURFACE);
   text-align: left;
   border: 1px solid var(--BGCOLOR);
   padding: 0.5em;
@@ -264,8 +274,9 @@ tr {
 .form {
   display: flex;
   flex-flow: column nowrap;
-  gap: 0.75em;
-  max-width: 800px;
+  justify-content: center;
+  margin: 25px auto;
+  max-width: 500px;
 }
 
 .form__checkbox-container {
@@ -273,13 +284,28 @@ tr {
   align-items: center;
   width: fit-content;
   gap: 0.5em;
+  margin-bottom: 25px;
+}
+
+.form__select-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 25px;
+}
+
+.form__timestamp-container {
+  display: flex;
+  margin-bottom: 25px;
 }
 
 .form__persist {
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 100%;
   gap: 0.5em;
+  margin-top: 25px;
 }
 
 .form__title-row {
@@ -290,16 +316,35 @@ tr {
 
 .form__input,
 .form__submit-button {
-  padding: 0.5em;
-  border-radius: 15px;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+.form__submit-button {
+  background-color: var(--PRIMARY);
+  border: none;
+  color: var(--BGCOLOR);
+  cursor: pointer;
+}
+
+.form__input {
+  background-color: var(--SURFACE);
+  border: 1px solid var(--BORDER-COLOR);
+  color: var(--COLOR);
+  font-size: 1.15rem;
+  margin: 5px 0 25px 0;
+}
+
+.form__input:focus {
+  outline-width: 0;
 }
 
 .form__input--text {
   min-height: 150px;
+  max-width: 500px;
 }
 
 .form__input--incomplete {
-  border: 1px solid var(--INPUT-INVALID);
   outline: 1px solid var(--INPUT-INVALID);
 }
 
@@ -311,6 +356,13 @@ tr {
 .form__select {
   width: fit-content;
   padding: 0.25em;
+  background-color: var(--SURFACE);
+  color: var(--COLOR);
+  border: 1px solid var(--BORDER-COLOR);
+}
+
+.form__select:focus {
+  outline-width: 0;
 }
 
 .form__action-buttons {
@@ -326,12 +378,14 @@ tr {
   display: flex;
   flex-flow: row nowrap;
   gap: 2em;
+  margin-bottom: 25px;
 }
 
 .form__divider {
   display: flex;
   flex-flow: column nowrap;
   gap: 0.5em;
+  row-gap: 25px;
 }
 
 @media screen and (max-width: 400px) {
@@ -356,7 +410,7 @@ tr {
   }
 
   .dash-header {
-    padding: 0 1em;
+    padding: .5rem 1.5rem;
   }
 
   .dash-container {
@@ -368,7 +422,7 @@ tr {
   }
 
   .table--notes {
-    grid-template-columns: repeat(3, 1fr) 2fr repeat(2, 1fr);
+    grid-template-columns: 1fr 5fr repeat(4, 2fr);
   }
 
   .note__created,

@@ -17,6 +17,8 @@ const NewNoteForm = ({ users }) => {
     const [userId, setUserId] = useState(users[0].id)
     const [title, setTitle] = useState('')
     const [text, setText] = useState('')
+    const [titleValid, setTitleValid] = useState(true)
+    const [textValid, setTextValid] = useState(true)
 
     useEffect(() => {
         if (isSuccess) {
@@ -52,8 +54,14 @@ const NewNoteForm = ({ users }) => {
     })
 
     const errClass = isError ? "errmsg" : "offscreen"
-    const validTitleClass = !title ? "form__input--incomplete" : ''
-    const validTextClass = !text ? "form__input--incomplete" : ''
+
+    const titleBlurHanlde = () => {
+        setTitleValid(title ? true : false)
+    }
+
+    const textBlurHanlde = () => {
+        setTextValid(text ? true : false)
+    }
 
     return (
         <>
@@ -61,47 +69,45 @@ const NewNoteForm = ({ users }) => {
             <form className="form" onSubmit={onSaveNoteClicked}>
                 <div className="form__title-row">
                     <h2>New Note</h2>
-                    <div className="form__action-buttons">
-                        <button
-                            className="icon-button"
-                            title="Save"
-                            disabled={!canSave}
-                        >
-                            <FontAwesomeIcon icon={faSave} />
-                        </button>
-                    </div>
                 </div>
                 <label className="form__label" htmlFor="title">
                     Title:</label>
                 <input
-                    className={`form__input ${validTitleClass}`}
+                    className={titleValid ? 'form__input' 
+                        : "form__input form__input--incomplete"}
                     id="title"
                     name="title"
                     type="text"
                     autoComplete="off"
                     value={title}
                     onChange={onTitleChanged}
+                    onBlur={titleBlurHanlde}
                 />
                 <label className="form__label" htmlFor="text">
                     Text:</label>
                 <textarea
-                    className={`form__input form__input--text ${validTextClass}`}
+                    className={textValid ? 'form__input form__input--text validTextClass' 
+                        : 'form__input form__input--text validTextClass form__input--incomplete'}
                     id="text"
                     name="text"
                     value={text}
                     onChange={onTextChanged}
+                    onBlur={textBlurHanlde}
                 />
-                <label className="form__label form__checkbox-container" htmlFor="username">
-                    ASSIGNED TO:</label>
-                <select
-                    id="username"
-                    name="username"
-                    className="form__select"
-                    value={userId}
-                    onChange={onUserIdChanged}
-                >
-                    {options}
-                </select>
+                <div className="form__select-container">
+                    <label className="form__label" htmlFor="username">
+                        ASSIGNED TO:</label>
+                    <select
+                        id="username"
+                        name="username"
+                        className="form__select"
+                        value={userId}
+                        onChange={onUserIdChanged}
+                    >
+                        {options}
+                    </select>
+                </div>
+                <button className="form__submit-button">Add Note</button>
             </form>
         </>
     )
