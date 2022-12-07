@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useUpdateNoteMutation, useDeleteNoteMutation } from "./notesApiSlice"
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons"
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons"
 import useAuth from "../../hooks/useAuth"
 
 const EditNoteForm = ({ note, users }) => {
@@ -59,13 +59,17 @@ const EditNoteForm = ({ note, users }) => {
     const updated = new Date(note.updatedAt).toLocaleString('en-US', { day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' })
 
     const options = users.map(user => {
-        return (
-            <option
-                key={user.id}
-                value={user.id}
-
-            > {user.username}</option >
-        )
+        if (user.active) {
+            return (
+                <option
+                    key={user.id}
+                    value={user.id}
+                >
+                    {user.username}
+                </option>
+            )
+        } 
+        return null
     })
 
     const errClass = (isError || isDelError) ? "errmsg" : "offscreen"
@@ -88,77 +92,75 @@ const EditNoteForm = ({ note, users }) => {
     }
 
     return (
-        <>
+        <form className="form" onSubmit={e => e.preventDefault()}>
             <p className={errClass}>{errContent}</p>
-            <form className="form" onSubmit={e => e.preventDefault()}>
-                <div className="form__title-row">
-                    <h2>Edit Note #{note.ticket}</h2>
-                    <div className="form__action-buttons">
-                        {deleteButton}
-                    </div>
+            <div className="form__title-row">
+                <h2>Edit Note #{note.ticket}</h2>
+                <div className="form__action-buttons">
+                    {deleteButton}
                 </div>
-                <label className="form__label" htmlFor="note-title">
-                    Title:</label>
+            </div>
+            <label className="form__label" htmlFor="note-title">
+                Title:</label>
+            <input
+                className={`form__input ${validTitleClass}`}
+                id="note-title"
+                name="title"
+                type="text"
+                autoComplete="off"
+                value={title}
+                onChange={onTitleChanged}
+            />
+            <label className="form__label" htmlFor="note-text">
+                Text:</label>
+            <textarea
+                className={`form__input form__input--text ${validTextClass}`}
+                id="note-text"
+                name="text"
+                value={text}
+                onChange={onTextChanged}
+            />
+
+
+            <label className="form__label form__checkbox-container" htmlFor="note-completed">
+                WORK COMPLETE:
                 <input
-                    className={`form__input ${validTitleClass}`}
-                    id="note-title"
-                    name="title"
-                    type="text"
-                    autoComplete="off"
-                    value={title}
-                    onChange={onTitleChanged}
+                    className="form__checkbox"
+                    id="note-completed"
+                    name="completed"
+                    type="checkbox"
+                    checked={completed}
+                    onChange={onCompletedChanged}
                 />
-                <label className="form__label" htmlFor="note-text">
-                    Text:</label>
-                <textarea
-                    className={`form__input form__input--text ${validTextClass}`}
-                    id="note-text"
-                    name="text"
-                    value={text}
-                    onChange={onTextChanged}
-                />
+            </label>
 
-
-                <label className="form__label form__checkbox-container" htmlFor="note-completed">
-                    WORK COMPLETE:
-                    <input
-                        className="form__checkbox"
-                        id="note-completed"
-                        name="completed"
-                        type="checkbox"
-                        checked={completed}
-                        onChange={onCompletedChanged}
-                    />
-                </label>
-
-                <div className="form__select-container">
-                    <label className="form__label" htmlFor="note-username">
-                        ASSIGNED TO:</label>
-                    <select
-                        id="note-username"
-                        name="username"
-                        className="form__select"
-                        value={userId}
-                        onChange={onUserIdChanged}
-                    >
-                            {options}
-                    </select>
-                </div>
-
-                <div class="form__timestamp-container ">
-                    <p className="form__created">Created:<br />{created}</p>
-                    <p className="form__updated">Updated:<br />{updated}</p>
-                </div>
-
-                <button 
-                    className="form__submit-button"
-                    title="Save"
-                    onClick={onSaveNoteClicked}
+            <div className="form__select-container">
+                <label className="form__label" htmlFor="note-username">
+                    ASSIGNED TO:</label>
+                <select
+                    id="note-username"
+                    name="username"
+                    className="form__select"
+                    value={userId}
+                    onChange={onUserIdChanged}
                 >
-                    Update Note
-                </button>
-            </form>
-        </>
+                        {options}
+                </select>
+            </div>
+
+            <div className="form__timestamp-container ">
+                <p className="form__created">Created:<br />{created}</p>
+                <p className="form__updated">Updated:<br />{updated}</p>
+            </div>
+
+            <button 
+                className="form__submit-button"
+                title="Save"
+                onClick={onSaveNoteClicked}
+            >
+                Update Note
+            </button>
+        </form>
     )
 }
 

@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react"
 import { useAddNewUserMutation } from "./usersApiSlice"
 import { useNavigate } from "react-router-dom"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSave } from "@fortawesome/free-solid-svg-icons"
 import { ROLES } from "../../config/roles"
 import useTitle from "../../hooks/useTitle"
 
@@ -86,56 +84,54 @@ const NewUserForm = () => {
     const validRolesClass = !role ? 'form__input--incomplete' : ''
 
     return (
-        <>
-            <p className={errClass}>{error?.data?.message}</p>
-            <form className="form" onSubmit={onSaveUserClicked}>
-                <div className="form__title-row">
-                    <h2>New User</h2>
-                </div>
-                <label className="form__label" htmlFor="username">
-                    Username: <span className="nowrap">[3-20 letters]</span></label>
-                <input
-                    className={`form__input ${validUserClass}`}
-                    id="username"
-                    name="username"
-                    type="text"
-                    autoComplete="off"
-                    value={username}
-                    onChange={onUsernameChanged}
-                    onBlur={userBlurHandle}
-                />
-                <label className="form__label" htmlFor="password">
-                    Password: <span className="nowrap">[4-12 chars incl. !@#$%]</span></label>
-                <input
-                    className={`form__input ${validPwdClass}`}
-                    id="password"
-                    name="password"
-                    type="password"
-                    value={password}
-                    onChange={onPasswordChanged}
-                    onBlur={userBlurHandle}
-                />
-                <div className="form__select-container">
-                    <label className="form__label" htmlFor="roles">
-                        ASSIGNED ROLE:</label>
-                    <select
-                        id="roles"
-                        name="roles"
-                        className={`form__select ${validRolesClass}`}
-                        value={role}
-                        onChange={onRolesChanged}
-                    >
-                        {options}
-                    </select>
-                </div>
-                <button 
-                    className="form__submit-button"
-                    title="Save"
+        <form className="form" onSubmit={onSaveUserClicked}>
+        <p className={errClass}>{error?.data?.message}</p>
+            <div className="form__title-row">
+                <h2>New User</h2>
+            </div>
+            <label className="form__label" htmlFor="username">
+                Username: <span className="nowrap">[3-20 letters]</span></label>
+            <input
+                className={`form__input ${validUserClass}`}
+                id="username"
+                name="username"
+                type="text"
+                autoComplete="off"
+                value={username}
+                onChange={onUsernameChanged}
+                onBlur={userBlurHandle}
+            />
+            <label className="form__label" htmlFor="password">
+                Password: <span className="nowrap">[4-12 chars incl. !@#$%]</span></label>
+            <input
+                className={`form__input ${validPwdClass}`}
+                id="password"
+                name="password"
+                type="password"
+                value={password}
+                onChange={onPasswordChanged}
+                onBlur={userBlurHandle}
+            />
+            <div className="form__select-container">
+                <label className="form__label" htmlFor="roles">
+                    ASSIGNED ROLE:</label>
+                <select
+                    id="roles"
+                    name="roles"
+                    className={`form__select ${validRolesClass}`}
+                    value={role}
+                    onChange={onRolesChanged}
                 >
-                    Add User
-                </button>
-            </form>
-        </>
+                    {options}
+                </select>
+            </div>
+            <button 
+                className="form__submit-button"
+                title="Save"
+            >
+                Add User
+            </button>
+        </form>
     )
 }
 
