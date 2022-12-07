@@ -485,6 +485,10 @@ h2 {
     gap: 0;
   }
 
+  .dash-footer {
+    padding: 0.5rem 0.5rem;
+  }
+
   .public header { 
     display: flex;
     justify-content: space-between;

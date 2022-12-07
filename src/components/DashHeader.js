@@ -111,7 +111,7 @@ const DashHeader = () => {
 
     let buttonContent
     if (isLoading) {
-        buttonContent = <p>Loagging Out...</p>
+        buttonContent = <p>Logging Out...</p>
     } else {
         buttonContent = (
             <>
