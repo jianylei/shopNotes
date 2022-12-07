@@ -170,7 +170,6 @@ h2 {
   padding: 0.5rem 1rem;
 }
 
-
 .dash-header::after,
 .dash-footer::after {
   content: "";
@@ -463,6 +462,15 @@ h2 {
   }
 }
 
+@media screen and (max-width: 550px) {
+  .dash-header {
+    padding: 0.5rem 0.5rem;
+  }
+
+  .dash-header__nav {
+    gap: 0;
+  }
+}
 
 @media screen and (min-width: 768px) {
   body {
