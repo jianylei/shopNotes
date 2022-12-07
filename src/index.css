@@ -148,6 +148,10 @@ h2 {
   padding: 0 1rem;
 }
 
+.public header a {
+  font-size: 1.25rem;
+}
+
 .public__main,
 .login {
   flex-grow: 1;

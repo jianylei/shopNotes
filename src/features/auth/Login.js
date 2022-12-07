@@ -59,7 +59,7 @@ const Login = () => {
   return (
     <section className="public">
         <header>
-            <h1>Employee Login</h1>
+            <h1>Login</h1>
             <Link to="/">Home</Link>
         </header>
         <main className="login">
