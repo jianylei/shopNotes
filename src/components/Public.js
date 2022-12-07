@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRightToBracket } from "@fortawesome/free-solid-svg-icons"
 
 const Public = () => {
   return (
     <section className="public">
         <header>
             <h1><span className="nowrap">JYL Repairs</span></h1>
-            <Link to="/login">Login</Link>
+            <Link to="/login"><FontAwesomeIcon icon={faRightToBracket} /></Link>
         </header>
         <main className="public__main">
             <p>Located in downtown Toronto, JYL Repairs provides a trained staff ready to meet your tech repair needs.</p>

@@ -5,6 +5,8 @@ import { setCredentials } from "./authSlice"
 import { useLoginMutation } from "./authApiSlice"
 import usePersist from "../../hooks/usePersist"
 import { PulseLoader } from "react-spinners"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHouseUser } from "@fortawesome/free-solid-svg-icons"
 
 const Login = () => {
   const userRef = useRef()
@@ -60,7 +62,7 @@ const Login = () => {
     <section className="public">
         <header>
             <h1>Login</h1>
-            <Link to="/">Home</Link>
+            <Link to="/"><FontAwesomeIcon icon={faHouseUser} /></Link>
         </header>
         <main className="login">
             <form className="form" onSubmit={handleSubmit}>
