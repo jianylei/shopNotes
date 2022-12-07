@@ -150,6 +150,7 @@ h2 {
 
 .public header a {
   font-size: 1.25rem;
+  margin-right: 10px
 }
 
 .public__main,
