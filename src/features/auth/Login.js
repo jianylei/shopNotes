@@ -33,6 +33,7 @@ const Login = () => {
   const handlePwdInput = (e) => setPassword(e.target.value)
   const handleSubmit = async (e) => {
     e.preventDefault()
+    window.scrollTo(0, 0)
     try {
       const { accessToken } = await login({username, password}).unwrap()
       dispatch(setCredentials({ accessToken }))

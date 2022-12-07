@@ -3,9 +3,14 @@ import Note from "./Note"
 import useAuth from "../../hooks/useAuth"
 import { PulseLoader } from "react-spinners"
 import useTitle from "../../hooks/useTitle"
+import { useEffect } from 'react'
 
 const NotesList = () => {
     useTitle('shopNotes: Notes List')
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     const { username, isManager, isAdmin } = useAuth()
 

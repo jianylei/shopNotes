@@ -2,9 +2,15 @@ import { useGetUsersQuery } from './usersApiSlice'
 import { PulseLoader } from 'react-spinners'
 import User from './User'
 import useTitle from '../../hooks/useTitle'
+import { useEffect } from 'react'
 
 const UsersList = () => {
     useTitle('shopNotes: Users List')
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     const {
         data: users,
         isLoading,
