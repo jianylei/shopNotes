@@ -4,7 +4,8 @@ const Public = () => {
   return (
     <section className="public">
         <header>
-            <h1>Welcome to <span className="nowrap">JYL Repairs</span></h1>
+            <h1><span className="nowrap">JYL Repairs</span></h1>
+            <Link to="/login">Login</Link>
         </header>
         <main className="public__main">
             <p>Located in downtown Toronto, JYL Repairs provides a trained staff ready to meet your tech repair needs.</p>
@@ -17,9 +18,6 @@ const Public = () => {
             <br />
             <p>Owner: Jian Lei</p>
         </main>
-        <footer>
-            <Link to="/login">Employee Login</Link>
-        </footer>
     </section>
   )
 }

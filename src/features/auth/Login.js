@@ -60,6 +60,7 @@ const Login = () => {
     <section className="public">
         <header>
             <h1>Employee Login</h1>
+            <Link to="/">Home</Link>
         </header>
         <main className="login">
             <form className="form" onSubmit={handleSubmit}>
@@ -97,9 +98,6 @@ const Login = () => {
                     </label>
             </form>
         </main>
-        <footer>
-            <Link to="/">Back to Home</Link>
-        </footer>
     </section>
   )
 }
