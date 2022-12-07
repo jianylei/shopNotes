@@ -1,8 +1,8 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from 'react-router-dom'
 import { useGetNotesQuery } from './notesApiSlice'
 import { memo } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircle } from "@fortawesome/free-solid-svg-icons"
 
 const Note = ({ noteId }) => {
     const { note } = useGetNotesQuery('notesList', {
@@ -22,28 +22,27 @@ const Note = ({ noteId }) => {
 
         const handleEdit = () => navigate(`/dash/notes/${noteId}`)
 
-        return (
-            <tr className="table__row">
-                <td className="table__cell note__status">
-                    {note.completed
-                        ? <span className="note__status--completed">Completed</span>
-                        : <span className="note__status--open">Open</span>
-                    }
-                </td>
-                <td className="table__cell note__created">{created}</td>
-                <td className="table__cell note__updated">{updated}</td>
-                <td className="table__cell note__title">{note.title}</td>
-                <td className="table__cell note__username">{note.username}</td>
+        const status = !note.completed ? '' : 'card--inactive'
 
-                <td className="table__cell">
-                    <button
-                        className="icon-button table__button"
-                        onClick={handleEdit}
-                    >
-                        <FontAwesomeIcon icon={faPenToSquare} />
-                    </button>
-                </td>
-            </tr>
+        return (
+            <div className={`note__container ${status}`} onClick={handleEdit}>
+                <div className='note__container-top'>
+                    <div>#{note.ticket}: {note.title}</div>
+                    <span className={ note.completed
+                        ? "note__status--completed"
+                        : "note__status--open"
+                    }>
+                        <FontAwesomeIcon icon={faCircle} />
+                    </span>
+                </div>
+                <div className='note__container-mid'>
+                    Assigned: {note.username}
+                </div>
+                <div className='note__container-bottom'>
+                    <div>Created:<br />{created}</div>
+                    <div>Updated:<br />{updated}</div>
+                </div>
+            </div>
         )
 
     } else return null

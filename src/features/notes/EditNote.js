@@ -7,7 +7,7 @@ import { PulseLoader } from 'react-spinners'
 import useTitle from '../../hooks/useTitle'
 
 const EditNote = () => {
-    useTitle('techNotes: Edit Note')
+    useTitle('shopNotes: Edit Note')
     const { id } = useParams()
 
     const { username, isManager, isAdmin } = useAuth()

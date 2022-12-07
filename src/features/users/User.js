@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons"
+import { faCircle } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from 'react-router-dom'
 import { useGetUsersQuery } from './usersApiSlice'
 import { memo } from 'react'
@@ -18,23 +18,24 @@ const User = ({ userId }) => {
 
         const userRolesString = user.roles.toString().replaceAll(',', ', ')
 
-        const cellStatus = user.active ? '' : 'table__cell--inactive'
+        const status = user.active ? '' : 'card--inactive'
 
         return (
-            <tr className="table__row user">
-                <td className={`table__cell ${cellStatus}`}>{user.username}</td>
-                <td className={`table__cell ${cellStatus}`}>{userRolesString}</td>
-                <td className={`table__cell ${cellStatus}`}>
-                    <button
-                        className="icon-button table__button"
-                        onClick={ handleEdit }
-                    >
-                        <FontAwesomeIcon icon={faPenToSquare} />
-                    </button>
-                </td>
-            </tr>
+            <div className={`user__container ${status}`} onClick={handleEdit}>
+                <div className='user__container-top'>
+                    <div className=''>{user.username}</div>
+                    <span className={ user.active
+                            ? "note__status--completed"
+                            : "note__status--open"
+                        }>
+                            <FontAwesomeIcon icon={faCircle} />
+                    </span>
+                </div>
+                <div className='user__container-bottom'>
+                    <div className=''>{userRolesString}</div>
+                </div>
+            </div>
         )
-
     } else return null
 }
 

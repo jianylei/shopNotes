@@ -1,10 +1,8 @@
 import { useRef, useState, useEffect } from "react"
 import { useNavigate, Link } from "react-router-dom"
-
 import { useDispatch } from "react-redux"
 import { setCredentials } from "./authSlice"
 import { useLoginMutation } from "./authApiSlice"
-
 import usePersist from "../../hooks/usePersist"
 import { PulseLoader } from "react-spinners"
 
@@ -64,8 +62,8 @@ const Login = () => {
             <h1>Employee Login</h1>
         </header>
         <main className="login">
-            <p ref={errRef} className={errClass} aria-live="assertive">{errMsg}</p>
             <form className="form" onSubmit={handleSubmit}>
+                <p ref={errRef} className={errClass} aria-live="assertive">{errMsg}</p>
                 <label htmlFor="username">Username:</label>
                 <input
                     className="form__input"
