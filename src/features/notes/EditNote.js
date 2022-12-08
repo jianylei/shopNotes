@@ -26,7 +26,7 @@ const EditNote = () => {
 
     if (!note || !users.length) return <PulseLoader color={'#FFF'} />
 
-    if (!isManager || !isAdmin) {
+    if (!isManager && !isAdmin) {
         if (note.username !== username) {
             return <p className='errmsg'>No access</p>
         }
