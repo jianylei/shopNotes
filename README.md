@@ -6,7 +6,8 @@
 ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
 ![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
 
-<a href="https://jyl-notes.onrender.com/">Live App</a><br>
+<a href="https://jyl-notes.onrender.com/">Live App</a> • 
+<a href="https://github.com/jianylei/notes_app_backend">Back end</a><br>
 
 ## Introduction
 "JYL Repairs" currently uses an archiac sticky note system to track all their repair notes. shopNotes was created to replace the old system, organizing all notes in a central database while bringing in functionalities to improve employee workflow and efficiency.
@@ -21,6 +22,7 @@ React, JavaScript, Node.js, Express.js, Redux, MongoDB, HTML/ CSS
   <li>Employees can only view notes assigned to them</li>  
   <li>Managers/admins have the ability to create/read/update/delete notes</li>
   <li>Notes can be marked as "completed" once task is finished</li>
+  <li>Easy navigation</li>
   <li>Responsive UI for desktops & mobile</li> 
 </ul>
 
